@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GeraCard</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <script defer src="js/script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="infsist.html">InfSist</a></li>
+                <li><a href="geracard.html">GeraCard</a></li>
+                <li><a href="contato.html">Contato</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h1>Gerar Cartão</h1>
+        <!-- Formulário para preencher os dados -->
+        <form id="card-form" onsubmit="generateCard(); return false;">
+            <label for="name">Nome:</label>
+            <input type="text" id="name" required><br><br>
+            
+            <label for="dob">Data de Nascimento:</label>
+            <input type="date" id="dob" required><br><br>
+            
+            <label for="id">Identidade:</label>
+            <input type="text" id="id" required><br><br>
+            
+            <button type="submit">Gerar Cartão</button>
+        </form>
+    </main>
+</body>
+</html>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+<script>
+// Função para gerar um cartão em PDF
+function generateCard() {
+    // Coleta os valores preenchidos no formulário
+    const name = document.getElementById("name").value;
+    const dob = document.getElementById("dob").value;
+    const id = document.getElementById("id").value;
+
+    // Importa a biblioteca jsPDF
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+
+    // Adiciona o texto ao PDF
+    doc.text(`Nome: ${name}`, 10, 10);
+    doc.text(`Data de Nascimento: ${dob}`, 10, 20);
+    doc.text(`Identidade: ${id}`, 10, 30);
+    doc.text(`Usuário certificado: ${navigator.platform}`, 10, 40);
+
+    // Salva o arquivo PDF
+    doc.save("cartao.pdf");
+}
+</script>
